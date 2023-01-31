@@ -179,7 +179,7 @@ if bmi > 24 and smokes == 'Yes':
     strl.write('Please check the chart below and talk to your doctor if you have any questions.')
     riskPlot = mplpyp.figure(figsize=(11, 5))
     sea.barplot(x=['Current Risk', 'BMI 24 Risk', 'Non-Smoking Risk'],
-    y=[logisticReg, probabilityIfHealthy, usrProbability])
+    y=[riskOfUser, probabilityIfHealthy, usrProbability])
     mplpyp.ylabel('Risk Percentage')
     mplpyp.title('Your Heart Disease Risk')
     strl.pyplot(riskPlot)
