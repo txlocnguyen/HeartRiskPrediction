@@ -130,6 +130,7 @@ riskOfUser = risk_probability(logisticReg, bmi)
 if strl.button("Determine Risk"):
     risk = ("%.2f" % riskOfUser) + "%."
     strl.write(f"Your heart disease risk is {risk}")
+
 if bmi < 25 and smokes == 'No':
     strl.write("Consult with your doctor and refer to the chart below.")
     riskPlot = mplpyp.figure(figsize=(11, 5))
@@ -142,8 +143,7 @@ if bmi < 25 and smokes == 'No':
 if bmi > 24 and smokes == 'No':
     strl.write("You can lower your risk by reaching a BMI of 24. Refer to the chart below.")
     riskIfHealthyBMI = risk_probability(logisticReg, 24)
-    riskIfHealthyBMI = ("%.2f" % riskIfHealthyBMI) + '%.'
-    strl.write(f"Your heart disease risk would reduce to {riskIfHealthyBMI}")
+    strl.write('Your heart disease risk would reduce to', ("%.2f" % riskIfHealthyBMI), '%.')
     riskPlot = mplpyp.figure(figsize=(11, 5))
     sea.barplot(x=["Current BMI", "BMI 24"], y=[riskOfUser, riskIfHealthyBMI])
     mplpyp.ylabel("Risk (%)")
@@ -167,8 +167,8 @@ if bmi < 25 and smokes == 'Yes':
 
 if bmi > 24 and smokes == 'Yes':
     strl.write('Reducing your BMI could lower your risk.')
-    user_prob_healthy = risk_probability(logisticReg, 24)
-    strl.write('Achieving a BMI of 24 could decrease your heart disease risk to', ("%.2f" % user_prob_healthy), '%.')
+    probabilityIfHealthy = risk_probability(logisticReg, 24)
+    strl.write('Achieving a BMI of 24 could decrease your heart disease risk to', ("%.2f" % probabilityIfHealthy), '%.')
     strl.write('Quitting smoking is also a way to decrease the risk.')
     usrX = nonSmokerPopulation['BMI'].values.reshape(-1, 1)
     usrY = nonSmokerPopulation['HeartDisease'].values
@@ -179,7 +179,7 @@ if bmi > 24 and smokes == 'Yes':
     strl.write('Please check the chart below and talk to your doctor if you have any questions.')
     riskPlot = mplpyp.figure(figsize=(11, 5))
     sea.barplot(x=['Current Risk', 'BMI 24 Risk', 'Non-Smoking Risk'],
-    y=[logisticReg, user_prob_healthy, usrProbability])
+    y=[logisticReg, probabilityIfHealthy, usrProbability])
     mplpyp.ylabel('Risk Percentage')
     mplpyp.title('Your Heart Disease Risk')
     strl.pyplot(riskPlot)
